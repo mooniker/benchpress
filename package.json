@@ -1,0 +1,36 @@
+{
+  "name": "benchpress",
+  "version": "0.0.0",
+  "description": "...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mooniker/benchpress.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mooniker/benchpress/issues"
+  },
+  "homepage": "https://github.com/mooniker/benchpress#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "cheerio": "^0.22.0",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.6",
+    "mongoose-unique-validator": "^1.0.2",
+    "request": "^2.78.0",
+    "request-promise": "^4.1.1"
+  },
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "eslint": "^3.9.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.3.1",
+    "eslint-plugin-standard": "^2.0.1"
+  }
+}

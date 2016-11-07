@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {{ $ctrl.data.meta.courtName}}: <cite>{{$ctrl.data.caseName}}</cite> ({{$ctrl.data.dateString}})
+    </div>
+    <div class="panel-body">
+        <div ng-if="$ctrl.data.summary">
+            <h3 class="lead">State-provided summary</h3>
+            <p>{{$ctrl.data.summary}}</p> 
+        </div>
+        <ul>
+            <li>source: <a ng-href="$ctrl.data.meta.srcHref">{{$ctrl.data.meta.srcHref}}</a></li>
+            <li ng-repeat="href in $ctrl.data.hrefs">HREF: <a ng-href="href.href">{{href.name}}</a></li>
+        </ul>
+        <button class="btn btn-xs btn-info" ng-click="$ctrl.showDevMode = !$ctrl.showDevMode" add-icon="code">*</button>
+        <pre ng-if="$ctrl.showDevMode"><code>{{$ctrl.data | json:4}}</code></pre>
+    </div>
+</div>
