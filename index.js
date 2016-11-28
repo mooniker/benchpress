@@ -16,9 +16,9 @@ const va = require('./districts/va')
 
 const request = require('request-promise')
 
-let app = express()
+const app = express()
 
-app.get('/pong', (request, response) => response.json({ response: 'pong' }))
+app.get('/ping', (request, response) => response.json({ response: 'pong' }))
 
 // app.all('*', (request, response) => {
 //     console.log('Requested Supreme Court')
@@ -83,8 +83,7 @@ mongoose.connect(process.env.MONGO_DB_URL, (obj) => {
     }
 })
 
-app.get('/index', (request, response) => {
-    console.log('Requested index of docs.')
+app.get('/opinion-leads', (request, response) => {
     OpinionAbstract.find({}).then((docs) => {
         response.json(docs)
     }).catch((err) => {
@@ -101,20 +100,33 @@ app.get('/first', (request, response) => {
 })
 
 app.get('/scrape', (request, response) => {
-    console.log('Requested Supreme Court')
-    va.supremeCourt().then((opinions) => {
-        opinions.forEach((opinionAbstract) => {
-            new OpinionAbstract(opinionAbstract).save(console.log)
+  console.log('Requested Supreme Court')
+  va.supremeCourt().then(opinions => {
+    opinions.forEach(opinionAbstract => {
+      if (opinionAbstract.docketDate) {
+        OpinionAbstract.findOne({
+          docketDate: opinionAbstract.docketDate
+        }, (err, doc) => {
+          if (err) {
+            console.error(err)
+          } else if (!doc) {
+            // if the doc doesn't already exist in db, save it
+            new OpinionAbstract(opinionAbstract).save(console.log).catch(console.error)
+          } else {
+            console.log('Already got this one')
+            // TODO double check it against existing record.
+          }
         })
-
-    }).then((json) => {
-        response.json({
-            message: 'stored!',
-            data: json
-        })
-    }).then(() => {
-        OpinionAbstract.find({}).then(console.log)
+      }
     })
+  }).then((json) => {
+    response.json({
+      message: 'stored!',
+      data: json
+    })
+  }).then(() => {
+    OpinionAbstract.find({}).then(console.log)
+  })
 })
 
 app.use('/bower_components', express.static('bower_components'))
