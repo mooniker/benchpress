@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-bootstrap": "^2.2.0",
+    "angular-bootstrap": "^2.3.0",
     "bootstrap": "^3.3.7",
     "components-font-awesome": "^4.7.0",
     "less": "^2.7.1",
